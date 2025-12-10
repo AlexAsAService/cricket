@@ -1,0 +1,13 @@
+{
+  "name": "cricket",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prom-client": "^15.1.0"
+  }
+}
