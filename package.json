@@ -1,11 +1,19 @@
 {
   "name": "cricket",
   "version": "0.0.0",
-  "description": "",
+  "description": "A minimal HTTP service for smoke testing deployments, networking, and load balancing.",
+  "private": true,
   "type": "module",
   "scripts": {},
-  "keywords": [],
-  "author": "",
+  "author": "Alex Herrera <AlexAsAService@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexAsAService/cricket"
+  },
+  "bugs": {
+    "url": "https://github.com/AlexAsAService/cricket/issues"
+  },
+  "homepage": "https://github.com/AlexAsAService/cricket#readme",
   "license": "ISC",
   "dependencies": {
     "prom-client": "^15.1.0"
