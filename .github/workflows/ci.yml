@@ -14,34 +14,46 @@ concurrency:
 
 jobs:
   build-image:
-    name: Build container image (artifact only)
+    name: Build container image
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build image (export OCI archive) 
+      - name: Build image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
-          load: false
+          load: true
           push: false
           tags: cricket:pr-${{ github.sha }}
-          outputs: type=oci,dest=/tmp/cricket.oci.tar
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - name: Upload image artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: cricket-image-oci-${{ github.sha }}
-          path: /tmp/cricket.oci.tar
-          if-no-files-found: error
-          retention-days: 14
+        env:
+          DOCKER_BUILD_SUMMARY: false
+      - name: Run container
+        run: |
+          docker run -d --rm \
+            --name cricket \
+            -p 8080:8080 \
+            cricket:pr-${{ github.sha }}
+      - name: Smoke test
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 20); do
+            if curl -fsS http://localhost:8080/ >/dev/null; then
+              break
+            fi
+            sleep 0.5
+          done
+          curl -fsS http://localhost:8080/ >/dev/null
+          curl -fsS http://localhost:8080/metrics >/dev/null
+      - name: Show logs (on failure)
+        if: failure()
+        run: docker logs cricket || true
+      - name: Stop container
+        if: always()
+        run: docker stop cricket || true
