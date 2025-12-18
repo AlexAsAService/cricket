@@ -1,5 +1,11 @@
 # cricket
 
+## 0.0.7
+
+### Patch Changes
+
+- 0aff917: Automate version tag generation on commit into master with a version bump(version in package.json doesn't have a tag yet). Also only run changesets if this is not a push of a fresh version bump.
+
 ## 0.0.3
 
 ### Patch Changes
