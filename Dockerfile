@@ -7,7 +7,7 @@ FROM alpine:${ALPINE_VERSION} AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 
-RUN apk add --no-cache npm \
+RUN apk add --no-cache npm nodejs \
   && npm ci --omit=dev
 
 COPY index.js ./index.js
@@ -19,6 +19,6 @@ RUN apk add --no-cache nodejs
 WORKDIR /app
 COPY --from=builder /app /app
 
-ENTRYPOINT ["node", "/app/index"]
+ENTRYPOINT ["node", "/app/index.js"]
 CMD []
 EXPOSE 8080
