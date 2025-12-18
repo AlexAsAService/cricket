@@ -1,5 +1,11 @@
 # cricket
 
+## 0.0.8
+
+### Patch Changes
+
+- c4aaf41: Use CHANGESETS_PAT to push version tag so publish job will trigger
+
 ## 0.0.7
 
 ### Patch Changes
