@@ -71,6 +71,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Create and push version tag
         run: |
           set -euo pipefail
@@ -78,7 +80,8 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           tag="${{ needs.release-version-check.outputs.version_tag }}"
+          git remote set-url origin "https://x-access-token:${{ secrets.CHANGESETS_PAT }}@github.com/${GITHUB_REPOSITORY}.git"
           git tag "$tag"
           git push origin "$tag"
