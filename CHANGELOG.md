@@ -1,5 +1,11 @@
 # cricket
 
+## 0.0.2
+
+### Patch Changes
+
+- 506146d: use all lower case repo owner for ghcr
+
 ## 0.0.1
 
 ### Patch Changes
