@@ -42,9 +42,10 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/cricket:${{ steps.ver.outputs.tag }}
-            ghcr.io/${{ github.repository_owner }}/cricket:sha-${{ steps.ver.outputs.sha }}
-            ghcr.io/${{ github.repository_owner }}/cricket:latest
+            export REPO_OWNER_LOWERCASE=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+            ghcr.io/$REPO_OWNER_LOWERCASE/cricket:${{ steps.ver.outputs.tag }}
+            ghcr.io/$REPO_OWNER_LOWERCASE/cricket:sha-${{ steps.ver.outputs.sha }}
+            ghcr.io/$REPO_OWNER_LOWERCASE/cricket:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
         env:
