@@ -35,6 +35,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Normalize Repo Owner
+        id: owner
+        run: |
+          echo "repo_owner_lowercase=$(echo '${{ grepo_owner_lowercaseithub.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_OUTPUT"
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -42,10 +46,9 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            export REPO_OWNER_LOWERCASE=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-            ghcr.io/$REPO_OWNER_LOWERCASE/cricket:${{ steps.ver.outputs.tag }}
-            ghcr.io/$REPO_OWNER_LOWERCASE/cricket:sha-${{ steps.ver.outputs.sha }}
-            ghcr.io/$REPO_OWNER_LOWERCASE/cricket:latest
+            ghcr.io/${{ steps.owner.repo_owner_lowercase }}/cricket:${{ steps.ver.outputs.tag }}
+            ghcr.io/${{ steps.owner.repo_owner_lowercase }}/cricket:sha-${{ steps.ver.outputs.sha }}
+            ghcr.io/${{ steps.owner.repo_owner_lowercase }}/cricket:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
         env:
