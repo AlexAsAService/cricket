@@ -4,6 +4,12 @@
 
 ### Patch Changes
 
+- 0544027: Add docker hub to the list of publish targets
+
+## 0.0.3
+
+### Patch Changes
+
 - dc189bf: Respect that we're trying to tolower the repo owner name inside the tags filed of the docker/build-push-action not a shell script lol
 
 ## 0.0.2
