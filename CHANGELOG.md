@@ -1,5 +1,11 @@
 # cricket
 
+## 0.1.0
+
+### Minor Changes
+
+- be91fd8: Stop supporting buildah
+
 ## 0.0.8
 
 ### Patch Changes
