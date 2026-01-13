@@ -10,14 +10,15 @@ const chirpCount = new prom.Counter({
 });
 
 const server = http.createServer(async (req, res) => {
-  
-
   const ip = req.socket.remoteAddress;
   let ret;
 
   if(req.url == '/metrics') {
     res.writeHead(200, {'Content-Type': 'text/plain'});
     ret = await prom.register.metrics();
+  } else if (req.url == '/health') {
+    res.writeHead(200, {'Content-Type': 'application.json'});
+    ret = JSON.stringify({status: 'pass'});
   } else {
     res.writeHead(200, {'Content-Type': 'application/json'});
     chirpCount.inc();
