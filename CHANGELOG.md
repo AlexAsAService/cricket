@@ -1,5 +1,11 @@
 # cricket
 
+## 0.1.1
+
+### Patch Changes
+
+- 50147a7: Add a dedicated health check endpoint
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "cricket",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A minimal HTTP service for smoke testing deployments, networking, and load balancing.",
   "private": true,
   "type": "module",
